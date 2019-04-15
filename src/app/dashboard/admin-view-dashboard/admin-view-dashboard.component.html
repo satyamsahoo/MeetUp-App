@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="text-center">
+        <div class="btn-group" role="group" style="float: right;">
+            <h5 class="border border-info" (click)="logoutFunction()" style="cursor: pointer;">Logout</h5>
+          </div>
+        <div class="col-sm-12 col-md-2 col-lg-3 own-navbar">
+            <h5 class="border border-info">MeetUp - Admin Dashboard</h5>
+        </div>
+
+
+        <div class="">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              <
+            </div>
+            <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+            >
+            {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+            </div>
+            <div
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              >
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+   
+<div class="row">
+  <div class="col-md-4">
+    <br>
+    <br>
+    <div>
+        <h5 class="border border-info">All Users List</h5>
+    </div>
+      <div class="list-group"  id="myList" >
+        <a class="list-group-item" *ngFor="let user of userList" (click)="getAllMeetingsOfUser(user)" style="cursor: pointer;height: 100%;overflow: auto;">{{user.firstName}} {{user.lastName}}</a>
+      </div>
+  </div>
+
+  <div class="col-md-8">
+      <br />
+    <h5 *ngIf="currentSelectedUser!=null" class="border border-info selectedName">{{currentSelectedUser.firstName}} {{currentSelectedUser.lastName}}</h5>
+      
+      <div>
+        <mwl-calendar-month-view
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="handleEvent('Clicked', $event.event)"
+          (eventTimesChanged)="eventTimesChanged($event)"
+        >
+        </mwl-calendar-month-view>
+      </div>
+      <button type="button" (click)="createNewMeeting()" class="btn btn-info">Create Meeting</button>
+  </div>
+</div>
+  
+  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+  
+  <br /><br /><br />
+
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="deleteMeeting(modalData?.event);close()">Delete</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="updateMeeting(modalData?.event);close()">Update</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template> 
+  
+</div>  

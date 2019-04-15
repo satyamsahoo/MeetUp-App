@@ -1,0 +1,98 @@
+<div>
+    <form>
+  
+        <div class="form-group">
+            <label for="title">Meeting Title:</label>
+            <input type="text" minlength="5" #tit="ngModel" class="form-control" name="title" id="title" [(ngModel)]="meetingTitle" required>
+            <div [hidden]="tit.pristine  || tit.valid" class="alert alert-danger">
+              <div *ngIf="tit.errors?.minlength">
+                ** Title should be minimum of 5 letters
+              </div>
+            
+              <div *ngIf="tit.errors?.required">
+                ** Title is required!
+              </div>
+            </div>
+            
+        </div>
+  
+        <div class="form-group">
+            <label for="description">Meeting Description:</label>
+            <input type="text" minlength="10" #desc="ngModel" class="form-control" name="description" id="description" [(ngModel)]="meetingDescription" required>
+            <div [hidden]="desc.pristine  || desc.valid" class="alert alert-danger">
+              <div *ngIf="desc.errors?.minlength">
+                ** Description should be minimum of 10 letters
+              </div>
+            
+              <div *ngIf="desc.errors?.required">
+                ** Description is required!
+              </div>
+            </div>
+            
+        </div>
+  
+        <div class="form-group">
+            <label for="member">Meeting Member:</label>
+            <input type="text" class="form-control" id="member" name="member" [(ngModel)]="memberName" placeholder="Search for Member" required disabled>
+        </div>  
+  
+  
+          
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+             <label>
+                  Meeting Start Date Time:
+              </label>
+              <input [owlDateTime]="dt1" name="startDate1" [(ngModel)]="meetingStartTime" placeholder="Start Date Time">
+            <span [owlDateTimeTrigger]="dt1">
+              <i class="fa fa-calendar"></i>
+            </span>
+            <owl-date-time #dt1></owl-date-time>
+          </div>
+    
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label>
+                  Meeting End Date Time:
+              </label>
+              <input [owlDateTime]="dt2" name="endDate1" [(ngModel)]="meetingEndTime" placeholder="End Date Time">
+
+              <span [owlDateTimeTrigger]="dt2">
+                <i class="fa fa-calendar"></i>
+              </span>
+              <owl-date-time #dt2></owl-date-time>
+          </div>
+    
+        </div>
+        
+      </div> 
+      
+     
+      <div class="form-group">
+        <label for="place">Meeting Place:</label>
+        <input type="text" minlength="5" class="form-control" #plc="ngModel" name="place" id="place" [(ngModel)]="meetingPlace" required>
+        <div [hidden]="plc.pristine  || plc.valid" class="alert alert-danger">
+          <div *ngIf="plc.errors?.minlength">
+            ** Place should contain minimum 5 letters!
+          </div>
+        
+          <div *ngIf="plc.errors?.required">
+            ** Place is required!
+          </div>
+          
+        </div>
+      </div> 
+  
+      <div class="form-group">
+          <label for="organiser">Meeting Organiser:</label>
+          <input type="text" minlength="5" class="form-control" #plc="ngModel" name="organiser" id="organiser" [(ngModel)]="meetingOrganiserName" required disabled>
+  
+      </div>  
+      
+      <button type="submit" class="btn btn-primary" (click)="updateMeeting()">Update</button>
+
+    </form>
+    
+  </div>

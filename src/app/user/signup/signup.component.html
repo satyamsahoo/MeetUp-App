@@ -1,0 +1,136 @@
+<app-my-nav></app-my-nav>
+<div class="signup-page">
+  <br>
+  <h3 class="welcome" >Register yourself</h3>
+<div class="container">
+  <br>
+<form>
+  <div class="form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="fir">FirstName:</label>
+          <input type="text" minlength="2" #fstName ="ngModel" class="form-control" name="firstName" id="fir" [(ngModel)]="firstName" required autofocus placeholder="First name">
+      </div>
+
+      <div [hidden]="fstName.pristine  || fstName.valid" class="alert alert-danger">
+          <div *ngIf="fstName.errors?.minlength">
+            ** First Name should contain minimum 2 letters!
+          </div>
+        
+        <div *ngIf="fstName.errors?.required">
+          ** First Name is required!
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+          <label for="las">LastName:</label>
+          <input type="text" #lstName="ngModel" minlength="2" class="form-control" name="lastName" id="las" [(ngModel)]="lastName" required placeholder="Last Name">
+      </div>
+      
+      <div [hidden]="lstName.pristine  || lstName.valid" class="alert alert-danger">
+        <div *ngIf="lstName.errors?.minlength">
+          ** Last Name should contain minimum 2 letters!
+        </div>
+      
+      <div *ngIf="lstName.errors?.required">
+        ** Last Name is required!
+      </div>
+
+    </div>
+    </div>
+  </div> 
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" minlength="8" #eml="ngModel" class="form-control" name="email" id="email" [(ngModel)]="email" required placeholder="xyz@abc.com">
+    <small id="emailHelp"  class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div [hidden]="eml.pristine  || eml.valid" class="alert alert-danger">
+      <div *ngIf="eml.errors?.minlength">
+        ** Email should contain minimum 8 letters!
+      </div>
+    
+      <div *ngIf="eml.errors?.required">
+        ** Email is required!
+      </div>
+    </div>
+    
+  </div>
+ 
+  <div class="form-group">
+    <label for="username">UserName:</label>
+    <input type="text" minlength="5" class="form-control" #usrnm="ngModel" name="userName" id="inputusername" [(ngModel)]="userName" required placeholder="Unique username">
+    <div [hidden]="usrnm.pristine  || usrnm.valid" class="alert alert-danger">
+      <div *ngIf="usrnm.errors?.minlength">
+        ** UserName should contain minimum 5 letters!
+      </div>
+    
+      <div *ngIf="usrnm.errors?.required">
+        ** Username is required!
+      </div>
+
+      <div *ngIf="isAdmin==true && userName">
+          <div *ngIf="checkUserNameValidity(userName)" class="alert alert-danger">
+            ** Admin user should have '-admin' at the end of User Name
+          </div>
+      </div>
+      
+    </div>
+    
+  </div> 
+   
+  <div class="form-group">
+      <label for="cc">Country Name:</label>
+      <select class="form-control" id="cc" #cntry="ngModel" name="cc" [(ngModel)]="countryName" (click)="getCountryMobileCode(countryName)">
+        <option *ngFor="let country of countries" value={{country.countryCode}} >{{country.countryName}}</option>
+      </select>
+      <div [hidden]="cntry.pristine  || cntry.valid" class="alert alert-danger">
+          
+        <div *ngIf="cntry.errors?.required">
+          ** Country Name is required!
+        </div>
+      </div>
+  </div>  
+  <div class="form-group">
+    <label for="mobile">Mobile Number:</label>
+    <div class="form-row">
+      <div class="col-4">
+        <input type="text" class="form-control" name="mobilecode" id="mc" [(ngModel)]="countryCode" disabled>
+      </div>
+      <div class="col-8">
+        <input type="number" minlength="10" #monum="ngModel" class="form-control" name="mobile" id="mobile" [(ngModel)]="mobileNumber" placeholder="10 digit mobile number">
+      </div>
+      <div [hidden]="monum.pristine  || monum.valid" class="alert alert-danger">
+        <div *ngIf="monum.errors?.minlength">
+          ** Mobile Number should contain minimum 10 numner!
+        </div>
+      
+        <div *ngIf="monum.errors?.required">
+          ** Mobile Number is required!
+        </div>
+      </div>
+    </div>
+  </div>    
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" minlength="8" #pass="ngModel" name="password" id="pwd" [(ngModel)]="password" required placeholder="Password">
+    <div [hidden]="pass.pristine  || pass.valid" class="alert alert-danger">
+      <div *ngIf="pass.errors?.minlength">
+        ** Password should contain minimum 8 characters!
+      </div>
+    
+      <div *ngIf="pass.errors?.required">
+        ** Password is required!
+      </div>
+    </div>
+  </div>
+  <div class="form-group form-check">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" name="isAdmin" [(ngModel)]="isAdmin" value="">Make me Admin 
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="signUpFunction()">Sign Up</button><br>
+</form>
+</div>
+</div>

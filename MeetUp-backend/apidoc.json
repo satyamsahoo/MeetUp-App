@@ -1,0 +1,7 @@
+{
+    "name": "Meetup Application",
+    "version" : "0.0.1",
+    "description" : "Documentation for meetup app back-end",
+    "title" : "Meetup Apis",
+    "url" : "http://localhost:3000"
+}
